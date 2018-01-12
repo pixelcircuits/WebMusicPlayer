@@ -1,0 +1,176 @@
+div.editdetailsMain {	
+	width: 100%;
+	height: 100%;
+	-webkit-user-select: none; /* Chrome/Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+	
+	/* Rules below not implemented in browsers yet */
+	-o-user-select: none;
+	user-select: none;
+}
+
+div.editdetailsPanel {
+	position: absolute;
+	background-color: #ffffff;
+	max-width: 800px;
+	width: 90%;
+	height: 550px;
+}
+
+div.editdetailsMain md-tabs {
+	min-height: 435px;
+	height: 435px;
+}
+
+div.editdetailsMain button.rightJustify {
+	position: absolute;
+    right: 0;
+}
+
+div.editdetailsMain md-tabs div.artIcon {
+	height: 160px;
+	width: 160px;
+	background: rgba(100, 100, 100, 0.87);
+	background-size: cover;
+	border-radius: 0px;
+	margin-right: 0px;
+}
+
+div.editdetailsMain md-input-container {
+    height: 20px;
+    margin-top: 15px;
+    width: calc(100% - 40px);
+}
+
+div.editdetailsMain button.albumAutoFill {
+    color: rgba(0,0,0,0.87);
+	
+	margin: 0px;
+	margin-top: 18px;
+    padding: 0px;
+	min-height: 24px;
+    height: 24px;
+	width: 24px;
+}
+
+div.editdetailsMain button.albumAutoFill[disabled] {
+    color: rgba(0,0,0,0.38);
+}
+
+div.editdetailsMain button.albumArtButton {
+    color: rgba(0,0,0,0.87);
+    top: 125px;
+    left: 155px;
+    position: absolute;
+}
+
+div.editdetailsMain button.albumArtButton[disabled] {
+    color: rgba(0,0,0,0.38);
+}
+
+div.editdetailsMain div.albumSectionOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -4px;
+    left: -4px;
+    background-color: rgba(228, 228, 228, 0.52);
+    padding: 4px;
+}
+
+div.editdetailsMain md-progress-circular.center {
+	-ms-transform: translate(-50%,-50%); /* IE 9 */
+    -webkit-transform: translate(-50%,-50%); /* Chrome, Safari, Opera */
+    transform: translate(-50%,-50%);
+	position:absolute; 
+	top:50%; 
+	left:50%;
+}
+
+div.editdetailsMain md-tabs.sourceTabs {
+	min-height: 54px;
+	height: 54px;
+}
+
+div.editdetailsMain md-tabs.sourceTabs md-tab-item {
+	padding: 0px;
+}
+
+div.editdetailsMain button.sourceButton {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+div.editdetailsMain button.sourceButton span {
+	display: none;
+}
+
+div.editdetailsMain .select {
+	box-shadow: 0px 0px 0px 6px rgba(119, 119, 119, 0.69);
+}
+
+div.editdetailsMain md-tab-item.md-active button.sourceButton,
+div.editdetailsMain md-tab-item.md-active button.sourceButton:hover {	
+	background-color: rgba(0, 0, 0, 0.26);
+}
+
+div.editdetailsMain md-grid-tile {
+    cursor: pointer;
+    background: rgba(100, 100, 100, 0.87);
+    background-size: cover;
+}
+
+div.editdetailsMain md-grid-tile.colorSelect {
+    background-color: rgb(255, 255, 255);
+}
+
+div.editdetailsMain div.colorButton {
+    position: absolute;
+    top: 32%;
+    width: 22%;
+    height: 54%;
+}
+
+div.editdetailsMain div.manualStream md-input-container {
+	top: 5px;
+    left: 10px;
+    position: absolute;
+    width: calc(100% - 120px);
+}
+
+div.editdetailsMain div.manualStream button {
+	position: absolute;
+    right: 0px;
+    top: 5px;
+}
+
+div.editdetailsMain div.manualStream div.manualStreamFooter {
+	position: absolute;
+    width: 100%;
+    bottom: 0px;
+    height: 25px;
+	line-height: 25px;
+	background-color: rgba(0, 0, 0, 0.48);
+	font-size: 11pt;
+	color: rgb(255,255,255);
+}
+
+div.editdetailsMain div.manualStream {
+	position: relative;
+	height: 80px;
+    margin-top: 15px;
+	background-color: rgb(186, 186, 186);
+}
+
+div.editdetailsMain div.manualStream.bad {
+	background-color: rgb(158, 121, 121);
+}
+
+div.editdetailsMain div.playerImage {
+	position: absolute;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}

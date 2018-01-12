@@ -1,0 +1,21 @@
+<div class="colorPickerMain">	
+	<div ng-style="{'background-color':toRGBTextHue(hsv)}" style="position:absolute; left:0; top:0; width:100%; height:65%"></div>
+	<div class="colorPickerGradient" style="position:absolute; left:0; top:0; width:100%; height:65%" ng-mousedown="satValChange($event);">
+		<div class="colorPickerMarker" ng-style="{'left':(hsv[1]*100-3)+'%','bottom':(hsv[2]*100-4.5)+'%'}" style="position:absolute; width:6%; height:9%"></div>
+	</div>
+
+	<div ng-style="{'background-color':toRGBText(rgb)}" style="position:absolute; left:2%; top:67%; width:15%; height:15%"></div>
+	<div class="colorPickerRainbow" style="position:absolute; left:20%; top:71%; width:75%; height:6%" ng-mousedown="hueChange($event);">
+		<div class="colorPickerMarker" ng-style="{'left':(hsv[0]*100-4)+'%'}" style="position:absolute; top:-15%; width:8.5%; height:100%"></div>
+	</div>
+
+	<div style="position:absolute; left:4%; top:85%; width:32%; height:13%">
+		R<input type="number" style="margin-left:2px; width:43px;" ng-model="rgb[0]" min="0" max="255" ng-change="rgbChange(0)"/>
+	</div>
+	<div style="position:absolute; left:36%; top:85%; width:32%; height:13%">
+		G<input type="number" style="margin-left:2px; width:43px;" ng-model="rgb[1]" min="0" max="255" ng-change="rgbChange(1)"/>
+	</div>
+	<div style="position:absolute; left:68%; top:85%; width:32%; height:13%">
+		B<input type="number" style="margin-left:2px; width:43px;" ng-model="rgb[2]" min="0" max="255" ng-change="rgbChange(2)"/>
+	</div>
+</div>

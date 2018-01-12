@@ -1,0 +1,61 @@
+<div class="selectplaylistMain" ng-style="isCreateMode && {'height':'176px'} || {'height':'494px'}">	
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>{{ windowTitle }}</h2>
+			<span flex></span>
+			<md-button ng-hide="isCreateMode" ng-click="setCreateMode();" class="md-icon-button" aria-label="Add Playlist">
+				<i class="material-icons">&#xE145;</i>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<div ng-style="isCreateMode && {'height':'62px'} || {'height':'380px'}">
+		<div ng-show="!isCreateMode" style="height:100%">
+		
+			<md-content style="height:100%">
+				<div ng-show="playlistsSearching">
+					<br/> <br/> <br/>
+					<div layout="row" layout-align="space-around">
+						<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+					</div>
+				</div>
+				<h4 ng-show="!playlistsSearching && playlists.length==0"> <center>No Playlists...</center> </h4>
+				<md-list ng-hide="playlistsSearching" class="md-dense" flex="">
+					<md-list-item class="md-2-line" ng-repeat="item in playlists" ng-click="selectPlaylist(item);">
+						<div class="md-list-item-text" layout="column">
+							<h4>{{ item.name }}</h4>
+							<p>{{ item.songs.length }} Song(s)</p>
+						</div>
+						<md-divider ng-hide="(playlists.length-1)==$index"></md-divider>
+					</md-list-item>
+					<md-divider ng-hide="$index==playlists.length-1"></md-divider>
+				</md-list>
+			</md-content>
+			
+		</div>
+		<div ng-show="isCreateMode" style="height:100%; position:relative;">
+				
+			<div ng-show="persistingPlaylist" style="position:absolute; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.12);">
+				<div style="margin-top:8px;" layout="row" layout-align="space-around">
+					<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+				</div>
+			</div>
+			<div layout="row" layout-align="space-around">
+				<form ng-submit="savePlaylist();" style="width:100%; padding:0px;">
+					<md-input-container class="md-icon-float md-block">
+						<label>Name</label>
+						<input id="playlistNameInput" ng-model="playlistName" type="text" ng-disabled="persistingPlaylist" md-autofocus>
+					</md-input-container>
+				</form>
+			</div>
+			
+		</div>
+	</div>
+
+	<div style="width:100%; height:1px; background-color:#e1e1e1;"></div>
+	
+	<md-button ng-disabled="!playlistName || persistingPlaylist" ng-show="isCreateMode" class="md-raised saveButton" class="saveButton" ng-click="savePlaylist();">{{ actionText }}</md-button>
+	<md-button class="md-raised rightJustify" ng-click="close()">Close</md-button>
+
+</div>

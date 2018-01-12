@@ -1,0 +1,97 @@
+div.pagesettingsMain {
+	position: relative;
+	overflow-y: hidden;
+	width:100%;
+	height:100%;
+	
+	-webkit-user-select: none; /* Chrome/Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+	
+	/* Rules below not implemented in browsers yet */
+	-o-user-select: none;
+	user-select: none;
+}
+
+div.pagesettingsMain md-content {
+	background-color: rgb(235, 235, 235);
+}
+
+div.pagesettingsMain div.section {
+	padding: 15px;
+	padding-top: 30px;
+	position: relative;
+}
+
+div.pagesettingsMain .label {
+	position: absolute;
+	top: 5px;
+	left: 7px;
+	font-size: 14px;
+	opacity: 0.54; 
+}
+
+div.pagesettingsMain md-list.md-dense {
+	max-width: 400px;
+	padding: 0px;
+	background-color: #fafafa;
+}
+
+div.pagesettingsMain md-list-item.md-2-line {
+	height: 48px;
+	min-height: 48px;
+}
+
+div.pagesettingsMain md-list-item.md-2-line div.md-list-item-text h3 {
+	font-size: 12pt;
+}
+
+div.pagesettingsMain md-list.md-dense md-list-item.md-2-line md-icon.material-icons {
+	margin-top: 11px;
+}
+
+div.pagesettingsMain md-list.md-dense md-list-item.md-2-line md-progress-circular {
+	margin-top: 14px;
+}
+
+div.pagesettingsMain md-list.md-dense.sub-list {
+	max-width: 370px;
+	margin-top: 5px;
+	margin-left: 30px;
+}
+
+div.pagesettingsMain md-slider-container {
+    max-width: 360px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #fafafa;
+}
+
+div.pagesettingsMain md-list.md-dense md-icon.material-icons,
+div.pagesettingsMain md-list.md-dense md-switch {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.pagesettingsMain div.pluginIcon {
+	margin-left: -11px;
+    margin-right: 5px;
+    width: 88px;
+    height: 36px;
+	background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+div.pagesettingsMain button.arrowButton {
+	margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 25px;
+}
+
+div.pagesettingsMain button.arrowButton div.md-ripple-container {
+    height: 24px;
+    margin-top: 8px;
+}

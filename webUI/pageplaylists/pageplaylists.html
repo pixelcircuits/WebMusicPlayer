@@ -1,0 +1,206 @@
+<div class="pageplaylistsMain">	
+
+	<div style="position:absolute; top:0px; width:100%; height:100%;">
+		<div ng-style="isDesktop && {'width':'280px'} || {'width':'100%'}"  style="position:absolute; left:0px; height:100%;">
+			
+			<div ng-class="{margin: !isDesktop}" class="md-whiteframe-2dp playlistPanel">
+				<md-toolbar layout="row" class="playlistsToolbar" style="height:55px; min-height:55px; max-height:55px;">
+					<div class="md-toolbar-tools" style="height:55px">
+						<span>Playlists</span>
+						<span flex></span>
+						<md-button ng-click="newPlaylist();" class="md-icon-button" aria-label="Add Playlist">
+							<i class="material-icons">&#xE145;</i>
+						</md-button>
+					</div>
+				</md-toolbar>
+				
+				<md-content flex style="width:100%; height:calc(100% - 55px);" layout="column">
+					<div ng-show="playlistsSearching">
+						<br/> <br/>
+						<div layout="row" layout-align="space-around">
+							<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+						</div>
+					</div>
+					<h4 ng-show="!playlistsSearching && playlists.length==0"> <center>No Playlists...</center> </h4>
+					<md-list ng-hide="playlistsSearching" class="md-dense playlistList" flex="">
+						<md-list-item contextmenu="e.preventDefault();" class="md-2-line" ng-class="{select: isDesktop&&selectedIndex==$index}" ng-repeat="item in playlists" ng-click="selectPlaylist($index);">
+							<div class="md-list-item-text" layout="column">
+								<h4>{{ item.name }}</h4>
+								<p>{{ item.songs.length }} Song(s)</p>
+							</div>
+							<md-menu md-position-mode="target-right target">
+								<md-button class="md-icon-button" ng-click="$mdOpenMenu($event);" aria-label="More">
+									<i class="material-icons">&#xE5D4;</i>
+								</md-button>
+								<md-menu-content width="2">
+									<md-menu-item>
+										<md-button ng-click="playPlaylist($index);">
+											Play
+										</md-button>
+									</md-menu-item>
+									<md-menu-item>
+										<md-button ng-click="editPlaylist($index);">
+											Edit Name...
+										</md-button>
+									</md-menu-item>
+									<md-menu-item>
+										<md-button ng-click="deletePlaylist($index);">
+											Delete
+										</md-button>
+									</md-menu-item>
+								</md-menu-content>
+							</md-menu>
+							<md-divider ng-hide="$index==playlists.length-1"></md-divider>
+						</md-list-item>	
+						<md-divider></md-divider>
+					</md-list>
+				</md-content>
+			</div>
+			
+		</div>
+	
+		<div ng-show="isDesktop" style="position:absolute; right:0px; width:calc(100% - 280px); height:100%;">
+			<div ng-hide="playlist.id" style="margin-top: 100px;">
+				<center> Select a playlist from the playlist menu </center>
+			</div>
+			<md-content ng-show="playlist.id" flex style="padding:20px; width:100%; height:100%;" layout="column">
+				<md-toolbar class="sub-header">
+					<div class="md-toolbar-tools">
+						<div class="artIcon md-whiteframe-2dp" ng-style="playlist.imgs.length==1 && {'background-image':'url('+playlist.imgs[0]+')'}">
+							<div ng-show="playlist.imgs.length>1" class="subArtIcon" ng-style="{'background-image':'url('+playlist.imgs[0]+')'}" style="top:0; left:0"></div>
+							<div ng-show="playlist.imgs.length>1" class="subArtIcon" ng-style="{'background-image':'url('+playlist.imgs[1]+')'}" style="top:0; right:0;"></div>
+							<div ng-show="playlist.imgs.length>1" class="subArtIcon" ng-style="{'background-image':'url('+playlist.imgs[2]+')'}" style="bottom:0; left:0;"></div>
+							<div ng-show="playlist.imgs.length>1" class="subArtIcon" ng-style="{'background-image':'url('+playlist.imgs[3]+')'}" style="bottom:0; right:0;"></div>
+						</div>
+						<h2><span>{{playlist.name}}</span></h2>
+						<span flex></span>
+						<md-button ng-click="addToPlaylist(playlist);" class="md-icon-button" aria-label="Add Song">
+							<i class="material-icons">&#xE145;</i>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<div ng-show="playlist.songs && playlist.songs.length" class="md-whiteframe-2dp">
+					<md-list class="md-dense listCustom" flex="">
+						<md-subheader class="md-no-sticky">
+							Title - Artist
+						</md-subheader>
+						<md-divider></md-divider>
+						<md-list-item class="md-2-line" ng-repeat="item in playlist.songs" ng-click="playSong(item);">
+							<div class="md-list-item-text" style="min-width:18px; max-width:18px; margin-left:10px; margin-right:5px;" layout="column">
+								<i class="material-icons">&#xE037;</i>
+							</div>
+							<div class="md-list-item-text" style="min-width:calc(80% - 110px); max-width:calc(80% - 110px); margin-left:5px; margin-right:5px;" layout="column">
+								<h3>{{ item.title }}</h3>
+							</div>
+							<div class="md-list-item-text" style="min-width:20%; max-width:20%; margin-left:5px; margin-right:5px;" layout="column">
+								<h3>{{ item.artist }}</h3>
+							</div>
+							<md-menu md-position-mode="target-right target">
+								<md-button class="md-icon-button" ng-click="$mdOpenMenu($event);" aria-label="More">
+									<i class="material-icons">&#xE5D4;</i>
+								</md-button>
+								<md-menu-content width="2">
+									<md-menu-item>
+										<md-button ng-click="addToQueue(item);">
+											Add to Queue
+										</md-button>
+									</md-menu-item>
+									<md-menu-item>
+										<md-button ng-click="editSong(item);">
+											Edit Details...
+										</md-button>
+									</md-menu-item>
+									<md-menu-item>
+										<md-button ng-click="removeFromPlaylist(playlist, $index);">
+											Remove
+										</md-button>
+									</md-menu-item>
+								</md-menu-content>
+							</md-menu>
+							<md-divider></md-divider>
+						</md-list-item>
+					</md-list>
+				</div>
+				<h4 ng-show="!playlist.songs || !playlist.songs.length"> <center>No Songs in Playlist...</center> </h4>
+			</md-content>
+		</div>
+	</div>
+	
+	
+	<script type="text/ng-template" id="bottom-sheet-playlist.html">
+		<md-bottom-sheet>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<div class="mainIcon md-whiteframe-2dp" ng-style="playlist.imgs.length==1 && {'background-image':'url('+playlist.imgs[0]+')'}">
+						<div ng-show="playlist.imgs.length>1" class="subArtIcon" ng-style="{'background-image':'url('+playlist.imgs[0]+')'}" style="top:0; left:0"></div>
+						<div ng-show="playlist.imgs.length>1" class="subArtIcon" ng-style="{'background-image':'url('+playlist.imgs[1]+')'}" style="top:0; right:0;"></div>
+						<div ng-show="playlist.imgs.length>1" class="subArtIcon" ng-style="{'background-image':'url('+playlist.imgs[2]+')'}" style="bottom:0; left:0;"></div>
+						<div ng-show="playlist.imgs.length>1" class="subArtIcon" ng-style="{'background-image':'url('+playlist.imgs[3]+')'}" style="bottom:0; right:0;"></div>
+					</div>
+					<h2><span>{{playlist.name}}</span></h2>
+					<span flex></span>
+					<md-button class="md-raised" ng-click="close()" aria-label="Back">Back</md-button>
+				</div>
+			</md-toolbar>
+			<md-content flex style="padding-left:20px; padding-right:20px; width:100%; height:100%;" layout="column">	
+				<md-toolbar class="sub-header">
+					<div class="md-toolbar-tools">
+						<span flex></span>
+						<md-button ng-click="addToPlaylist(playlist);" class="md-icon-button" aria-label="Add Song">
+							<i class="material-icons">&#xE145;</i>
+						</md-button>
+					</div>
+				</md-toolbar>
+				<div ng-show="playlist.songs && playlist.songs.length" class="md-whiteframe-2dp">
+					<md-list class="md-dense listCustom" flex="">
+						<md-subheader class="md-no-sticky">
+							Title - Artist
+						</md-subheader>
+						<md-divider></md-divider>
+						<md-list-item class="md-2-line" ng-repeat="item in playlist.songs" ng-click="playSong(item);">
+							<div class="md-list-item-text" style="min-width:18px; max-width:18px; margin-left:10px; margin-right:5px;" layout="column">
+								<i class="material-icons">&#xE037;</i>
+							</div>
+							<div class="md-list-item-text" style="min-width:calc(80% - 110px); max-width:calc(80% - 110px); margin-left:5px; margin-right:5px;" layout="column">
+								<h3>{{ item.title }}</h3>
+							</div>
+							<div class="md-list-item-text" style="min-width:20%; max-width:20%; margin-left:5px; margin-right:5px;" layout="column">
+								<h3>{{ item.artist }}</h3>
+							</div>
+							<md-menu md-position-mode="target-right target">
+								<md-button class="md-icon-button" ng-click="$mdOpenMenu($event);" aria-label="More">
+									<i class="material-icons">&#xE5D4;</i>
+								</md-button>
+								<md-menu-content width="2">
+									<md-menu-item>
+										<md-button ng-click="addToQueue(item);">
+											Add to Queue
+										</md-button>
+									</md-menu-item>
+									<md-menu-item>
+										<md-button ng-click="editSong(item);">
+											Edit Details...
+										</md-button>
+									</md-menu-item>
+									<md-menu-item>
+										<md-button ng-click="removeFromPlaylist(playlist, $index);">
+											Remove
+										</md-button>
+									</md-menu-item>
+								</md-menu-content>
+							</md-menu>
+							<md-divider></md-divider>
+						</md-list-item>
+					</md-list>
+				</div>
+				<h4 ng-show="!playlist.songs || !playlist.songs.length"> <center>No Songs in Playlist...</center> </h4>
+				
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+			</md-content>
+		</md-bottom-sheet>
+	</script>
+		
+</div>

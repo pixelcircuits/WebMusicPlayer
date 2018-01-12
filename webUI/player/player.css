@@ -1,0 +1,193 @@
+div.playerMain {
+	position: relative;
+	background-color: #646464;
+	width: 100%; 
+	height: 100%;
+	
+	-webkit-user-select: none; /* Chrome/Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+	
+	/* Rules below not implemented in browsers yet */
+	-o-user-select: none;
+	user-select: none;
+}
+
+div.playerMain div.playerImageBack {
+	position: absolute;
+	background-position: center;
+	width: 100%;
+	height: 80%;
+	
+	background-size: cover;          
+	filter: blur(5px) brightness(0.9);
+	-webkit-filter: blur(5px) brightness(0.9);
+	-moz-filter: blur(5px) brightness(0.9);
+	-o-filter: blur(5px) brightness(0.9);
+	-ms-filter: blur(5px) brightness(0.9);
+}
+
+div.playerMain div.playerImage {
+	position: absolute;
+	background-position: center;
+	width: 100%;
+	height: 80%;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+div.playerMain div.playerOverlay {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0);
+	width: 100%;
+	height: 80%;
+	transition: all .2s linear;
+}
+
+div.playerMain:hover div.playerOverlay,
+div.playerMain div.playerOverlay.playerHover {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+div.playerMain .playerTopRight {
+	font-size: 30px;
+	width: 30px;
+	height: 30px;
+	margin: auto;
+	position: absolute;
+	top: 10px; 
+	right: 10px; 
+}
+
+div.playerMain .playerLeft {
+	font-size: 60px;
+	width: 60px;
+	height: 60px;
+	margin: auto;
+	position: absolute;
+	top: 0; 
+	left: 5%; 
+	bottom: 0; 
+}
+
+div.playerMain .playerCenter {
+	font-size: 80px;
+	width: 80px;
+	height: 80px;
+	margin: auto;
+	position: absolute;
+	top: 0; 
+	left: 0; 
+	bottom: 0; 
+	right: 0;
+}
+
+div.playerMain .playerRight {
+	font-size: 60px;
+	width: 60px;
+	height: 60px;
+	margin: auto;
+	position: absolute;
+	top: 0; 
+	bottom: 0; 
+	right: 5%;
+}
+
+div.playerMain .playerTextLeft {
+	text-align: left;
+	color: rgba(174, 174, 174, 0.4);
+	font-size: 14px;
+	height: 14px;
+	width: 50%;
+	margin: auto;
+	position: absolute;
+	bottom: 10px; 
+	left: 10px;
+}
+
+div.playerMain .playerTextRight {
+	text-align: right;
+	color: rgba(174, 174, 174, 0.4);
+	font-size: 14px;
+	height: 14px;
+	width: 50%;
+	margin: auto;
+	position: absolute;
+	bottom: 10px; 
+	right: 10px;
+}
+
+div.playerMain .playerCenter.selectText {
+	color: rgba(174, 174, 174, 0.4);
+	font-size: 25px;
+    text-align: center;
+    width: 100%;
+    height: 25px;
+	margin: auto;
+	position: absolute;
+	top: 0; 
+	left: 0; 
+	bottom: 0; 
+	right: 0;
+}
+
+div.playerMain:hover .playerCenter.selectText,
+div.playerMain:hover .playerTextLeft,
+div.playerMain:hover .playerTextRight,
+div.playerMain:hover .material-icons.button,
+div.playerMain .material-icons.button.playerHover,
+div.playerMain .playerHover {
+	color: rgb(174, 174, 174);
+}
+
+div.playerMain div.playerBottom {
+	position: absolute;
+	background-color: #343434; 
+	width: 100%; 
+	height: 20%; 
+	bottom: 0;
+	text-align: center;
+}
+
+div.playerMain div.seekBar {
+	cursor: pointer;
+	position: absolute;
+	background-color: rgba(0,0,0,0); 
+	width: 100%; 
+	height: 9%; 
+	bottom: 15%;
+	text-align: center;
+}
+div.playerMain div.seekBar:focus {outline:0 !important;}
+
+div.playerMain .material-icons.button {
+	cursor: pointer;
+	color: rgba(174, 174, 174, 0.7);
+}
+div.playerMain .material-icons.button:focus {outline:0 !important;}
+
+div.playerMain:hover .material-icons.button:hover {
+	border-radius: 25px;
+	background-color: rgb(0, 0, 0);
+}
+
+div.playerMain:hover .material-icons.button:active {
+	color: rgb(255, 255, 255);
+}
+
+div.playerMain md-progress-linear .md-container {
+	background-color: rgb(207, 207, 207);
+}
+
+div.playerMain md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
+    background-color: rgb(133, 133, 133);
+}
+
+div.playerMain md-progress-circular path {
+	stroke: rgba(174, 174, 174, 0.4);
+}
+
+div.playerMain:hover md-progress-circular path {
+	stroke: rgb(174, 174, 174);
+}
+

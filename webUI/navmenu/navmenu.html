@@ -1,0 +1,48 @@
+<div class="navmenuMain">	
+	  
+	<img src="webUI/navmenu/logo.png" alt="Web Music Player" style="width:calc(100% - 20px); padding:10px; background-color:#215bef;" class="md-whiteframe-2dp">
+	
+	<md-content>
+		<md-list class="md-dense" flex>
+			<md-list-item class="md-1-line" ng-class="{select: location==='/search'}" ng-click="search();">
+				<i class="material-icons">&#xE8B6;</i>
+				<div class="md-list-item-text" layout="column">
+					<h3>Search</h3>
+				</div>
+			</md-list-item>
+			<md-list class="md-dense" flex>
+				<md-list-item class="md-1-line" ng-click="search('song');">
+					<div class="md-list-item-text" layout="column">
+						<p>Songs</p>
+					</div>
+				</md-list-item>
+				<md-list-item class="md-1-line" ng-click="search('album');">
+					<div class="md-list-item-text" layout="column">
+						<p>Albums</p>
+					</div>
+				</md-list-item>
+				<md-list-item class="md-1-line" ng-click="search('artist');">
+					<div class="md-list-item-text" layout="column">
+						<p>Artists</p>
+					</div>
+				</md-list-item>
+			</md-list>
+			<md-list-item class="md-1-line" ng-class="{select: location==='/playlists'}" ng-click="playlists();">
+				<i class="material-icons">&#xE06D;</i>
+				<div class="md-list-item-text" layout="column">
+					<h3>Playlists</h3>
+				</div>
+			</md-list-item>
+			<md-divider ></md-divider>			
+		</md-list>	
+		<md-list>
+			<md-list-item class="md-1-line" ng-class="{select: location==='/settings'}" ng-click="settings();">
+				<i class="material-icons">&#xE8B8;</i>
+				<div class="md-list-item-text" layout="column">
+					<h3>Settings</h3>
+				</div>
+			</md-list-item>		
+		</md-list>
+	</md-content>
+	
+</div>

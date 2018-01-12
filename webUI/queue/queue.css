@@ -1,0 +1,53 @@
+div.queueMain {
+	position: relative;
+	background-color: #646464;
+	width: 100%; 
+	height: 100%;
+	
+	-webkit-user-select: none; /* Chrome/Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+	
+	/* Rules below not implemented in browsers yet */
+	-o-user-select: none;
+	user-select: none;
+}
+
+div.queueMain md-toolbar.custom {
+	background-color: rgb(181, 181, 181);
+	color: rgba(0, 0, 0, 0.870588);
+	min-height: 45px;
+}
+div.queueMain md-toolbar.custom .md-toolbar-tools {
+	height: 45px;
+}
+
+div.queueMain .md-avatar {
+	border-radius: 0;    
+	width: 45px !important;
+    height: 45px !important;
+}
+
+div.queueMain md-list-item._md-button-wrap>div.md-button {
+	padding-right: 0px;
+}
+
+div.queueMain md-list-item._md-button-wrap.select>div.md-button {
+    border-left-width: 4px;
+    border-left-color: #343434;
+    border-left-style: solid;
+    padding-left: 12px;
+}
+
+div.queueMain md-list.md-dense md-list-item.md-2-line.select {
+	background-color: rgb(228, 228, 228);
+}
+
+div.queueMain .md-toolbar-tools .md-button {
+	margin: 1px;
+}
+
+div.queueMain .md-toolbar-tools .md-button.select {
+    background-color: #939393;
+    border-radius: 5px;
+}

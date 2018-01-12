@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<title>Web Music Player</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="webUI/icon.png">
+	
+	<!-- Link Manifest for Installing as WebApp -->
+	<link rel="manifest" href="app/manifest.json">
+
+	<!-- Angular Material style sheet -->
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+	<!-- App style sheet -->
+	<link rel="stylesheet" href="webUI/style.css">
+	<link rel="stylesheet" href="webUI/pagesearch/pagesearch.css">
+	<link rel="stylesheet" href="webUI/pageplaylists/pageplaylists.css">
+	<link rel="stylesheet" href="webUI/pagesettings/pagesettings.css">
+	<link rel="stylesheet" href="webUI/selectplaylist/selectplaylist.css">
+	<link rel="stylesheet" href="webUI/editdetails/editdetails.css">
+	<link rel="stylesheet" href="webUI/navmenu/navmenu.css">
+	<link rel="stylesheet" href="webUI/player/player.css">
+	<link rel="stylesheet" href="webUI/queue/queue.css">
+	<link rel="stylesheet" href="webUI/colorpicker/colorpicker.css">
+  
+</head>
+<body ng-app="App" ng-cloak>
+  
+	<!-- Start of main HTML -->
+	<div ng-controller="AppCtrl" layout="column" style="height:100%; width:100%" ng-cloak>
+		
+		<div ng-style="{'right':rightSide, 'left':leftSide}" style="background-color:#ebebeb; height:100%; position:absolute; top:0">
+			<md-toolbar class="md-whiteframe-2dp md-hue-2" style="z-index: 400; height:54px; max-height:54px; min-height:54px; background-color:rgb(181, 181, 181); color:rgba(0, 0, 0, 0.87);">
+				<div class="md-toolbar-tools">
+					<md-button class="md-icon-button" ng-hide="isDesktop" ng-click="toggleLeft()" aria-label="Menu">
+						<i class="material-icons">&#xE5D2;</i>
+					</md-button>
+					<h2><span><b>{{toolbarText}}</b></span></h2>
+					<span flex></span>
+					<md-button class="md-icon-button" ng-hide="isDesktop" ng-click="toggleRight()" aria-label="Player">
+						<i class="material-icons">&#xE03D;</i>
+					</md-button>
+				</div>
+			</md-toolbar>
+			<div id="mainView" style="width:100%; height:calc(100% - 54px); position:absolute; top:54px; left:0;">
+				<ng-view></ng-view>
+			</div>
+			
+			<!-- Side Nav Menus (dynamic) -->
+			<md-sidenav ng-hide="isDesktop" class="md-sidenav-left" md-component-id="left" md-whiteframe="2" style="z-index:500; height:100%; width:200px; min-width:200px;">
+				<navmenu/>
+			</md-sidenav>
+			<md-sidenav ng-hide="isDesktop" class="md-sidenav-right" md-component-id="right" md-whiteframe="10" style="z-index:500; height:100%; width:300px; min-width:300px;">
+				<div style="width:100%; height:250px; "> <player/>	</div>
+				<div style="width:100%; height:calc(100% - 295px); "> <queue/>	</div>
+			</md-sidenav>
+		</div>
+		
+		<!-- Side Nav Menus (static) -->
+		<div id="leftSide" ng-show="isDesktop" class="md-whiteframe-2dp" style="width:200px; height:100%; position:absolute; left:0;">
+			<navmenu/>
+		</div>
+		<div id="rightSide" ng-show="isDesktop" class="md-whiteframe-10dp" style="width:350px; height:100%; position:absolute; right:0;">
+			<div style="width:100%; height:250px;"> <player/> </div>
+			<div style="width:100%; height:calc(100% - 295px);"> <queue/> </div>
+		</div>
+		
+	</div>
+	<!-- End of main HTML -->
+
+	<!-- Angular.js and Angular Material scripts -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+	<!-- App scripts -->
+	<script src="webUI/controller.js"></script>
+	<script src="webUI/websockets.js"></script>
+	<script src="webUI/adapter.js"></script>
+	<script src="webUI/connector.js"></script>
+	<script src="webUI/playcontrols.js"></script>
+	<script src="webUI/settings.js"></script>
+	<script src="webUI/notification.js"></script>
+	<script src="webUI/plugins.js"></script>
+	<script src="webUI/resize.js"></script>
+	<script src="webUI/pagesearch/pagesearch.js"></script>
+	<script src="webUI/pageplaylists/pageplaylists.js"></script>
+	<script src="webUI/pagesettings/pagesettings.js"></script>
+	<script src="webUI/selectplaylist/selectplaylist.js"></script>
+	<script src="webUI/editdetails/editdetails.js"></script>
+	<script src="webUI/navmenu/navmenu.js"></script>
+	<script src="webUI/player/player.js"></script>
+	<script src="webUI/queue/queue.js"></script>
+	<script src="webUI/colorpicker/colorpicker.js"></script>
+
+</body>
+</html>

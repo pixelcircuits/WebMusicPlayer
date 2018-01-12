@@ -1,0 +1,30 @@
+{
+  "name": "Web Music Player Link",
+  "description": "Adds Automation Tools",
+  "omnibox": {
+    "keyword": "link"
+  },
+  "icons": {
+    "16": "icon.png"
+  },
+  "content_scripts" : [{
+    "matches": ["<all_urls>"],
+	"run_at": "document_start",
+    "js": ["contentscript.js"]
+  }],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+	"storage",
+    "webRequestBlocking", 
+    "webRequest", 
+    "tabs", 
+	"http://*/*", 
+	"https://*/*"
+  ],
+  "web_accessible_resources": [],
+  "version": "1.0",
+  "minimum_chrome_version": "9",
+  "manifest_version": 2
+}

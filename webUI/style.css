@@ -1,0 +1,81 @@
+/* Z-Indexing */
+md-backdrop.md-sidenav-backdrop {
+	z-index: 450;
+}
+
+md-backdrop.md-menu-backdrop {
+	z-index: 505;
+}
+
+div._md.md-open-menu-container {
+	z-index: 506;
+}
+
+div.md-select-menu-container {
+	z-index: 506;
+}
+div.md-dialog-container {
+	z-index: 506;
+}
+
+md-toast {
+	z-index: 510;
+}
+
+md-tooltip {
+	z-index: 510;
+}
+
+/* Dynamic Layout */
+div.maximized {
+	right:0px; 
+	left:0px;
+}
+div.minimized {
+	right:350px; 
+	left:200px;
+}
+
+/* Toast Themes */
+md-toast.md-bottom {
+	top: 5px;
+	left: 17%;
+	width: 80%;
+}
+
+md-toast.toastError div.md-toast-content {
+	background-color: rgb(209, 45, 45);
+}
+
+md-toast.toastNotification div.md-toast-content {
+	background-color: rgb(118, 151, 167);
+}
+
+/* Confirmation Dialogs */
+md-dialog #popupContainer {
+	position: relative; 
+}
+
+md-dialog .footer {
+	width: 100%;
+	text-align: center;
+	margin-left: 20px; 
+}
+
+md-dialog .footer, .dialogdemoBasicUsage .footer > code {
+	font-size: 0.8em;
+	margin-top: 50px; 
+}
+
+md-dialog button.md-button.md-default-theme.md-primary {
+	width: 150px; 
+	background-color: rgba(233, 233, 233, 0.64);
+}
+
+md-dialog div#status {
+	color: #c60008; 
+}
+
+md-dialog .dialog-demo-prerendered md-checkbox {
+	margin-bottom: 0; 
+}

@@ -1,0 +1,68 @@
+<div class="queueMain">	
+
+		<md-toolbar layout="row" class="custom">
+			<div class="md-toolbar-tools">
+				<span>Queue</span>
+				<span flex></span>
+				<md-button ng-click="shuffle();" class="md-icon-button" aria-label="Shuffle">
+					<i class="material-icons">&#xE043;</i>
+				</md-button>
+				<md-button ng-click="queueRepeat(!repeat);" ng-class="{select: repeat}" class="md-icon-button" aria-label="Repeat">
+					<i class="material-icons">&#xE040;</i>
+				</md-button>
+				<md-menu md-position-mode="target-right target">
+					<md-button class="md-icon-button" ng-click="$mdOpenMenu($event);" aria-label="More">
+						<i class="material-icons">&#xE5D4;</i>
+					</md-button>
+					<md-menu-content width="3">
+						<md-menu-item>
+							<md-button ng-click="clear();">
+								Clear Queue
+							</md-button>
+						</md-menu-item>
+						<!--
+						<md-menu-item>
+							<md-button ng-click="">
+								Create Playlist...
+							</md-button>
+						</md-menu-item>
+						-->
+					</md-menu-content>
+				</md-menu>
+			</div>
+		</md-toolbar>
+
+		<md-content flex style="width:100%; height:100%;" layout="column">
+			<div ng-show="queue.length==0" style="margin-top: 60px;">
+				<center> No songs in queue </center>
+			</div>
+			<md-list class="md-dense" flex="">
+				<md-list-item ng-class="{select: playing.id==item.id}" class="md-2-line" ng-repeat="item in queue" ng-click="play(item)">
+					<div class="md-avatar" style="background-size:cover;" ng-style="{'background-image':item.albumArtIcon?'url('+item.albumArtIcon+')':'url(webUI/alt.png)'}"> </div>
+					<div class="md-list-item-text" layout="column">
+						<h3>{{ item.title }}</h3>
+						<h4>{{ item.artist }}</h4>
+					</div>
+					<md-menu md-position-mode="target-right target">
+						<md-button class="md-icon-button" ng-click="$mdOpenMenu($event);" aria-label="More">
+							<i class="material-icons">&#xE5D4;</i>
+						</md-button>
+						<md-menu-content width="2">
+							<md-menu-item>
+								<md-button ng-click="remove(item);">
+									Remove
+								</md-button>
+							</md-menu-item>
+							<md-menu-item>
+								<md-button ng-click="editSong(item);">
+									Edit Details...
+								</md-button>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+					<md-divider></md-divider>
+				</md-list-item>
+			</md-list>
+		</md-content>
+		
+</div>

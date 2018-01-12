@@ -1,0 +1,19 @@
+{
+  "name": "WebMusicPlayer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "dependencies": {
+    "express": "^4.14.0",
+    "body-parser": "^1.16.0",
+    "multer": "^1.1.0",
+    "get-pixels": "^3.3.0",
+    "bluetoothctl": "1.1.0",
+    "nedb": "^1.8.0",
+    "ws": "^1.1.1"
+  }
+}

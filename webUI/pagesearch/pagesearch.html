@@ -1,0 +1,339 @@
+<div class="pagesearchMain">	
+
+	<div style="position:absolute; top:0px; height:98px; width:100%; background-color:#737373;">
+		<br/>
+		<form ng-submit="onSearch($event)">
+			<i class="material-icons">&#xE8B6;</i>
+			<md-input-container md-no-float>
+				<input ng-model="searchFilter.text" placeholder="Search">
+			</md-input-container>
+			<br/>
+			<md-checkbox ng-model="searchFilter.song">Songs</md-checkbox>
+			<md-checkbox ng-model="searchFilter.album">Albums</md-checkbox>
+			<md-checkbox ng-model="searchFilter.artist">Artists</md-checkbox>
+			<span flex></span>
+			<!--<md-checkbox style="right:20px; position:absolute;">Loaded</md-checkbox>-->
+		</form>
+	</div>
+
+	<div style="position:absolute; top:98px; width:100%; height:calc(100% - 98px);">
+		<md-content flex style="padding-left:20px; padding-right:20px; width:100%; height:100%;" layout="column">
+			
+			<div ng-hide="searchText" style="margin-top: 100px;">
+				<center> Use the search bar to find music! </center>
+			</div>
+			
+			<div ng-show="searchFilter.song && searchText">
+				<h1> Songs </h1>
+				<h3 ng-show="!songsSearching && songs.length==0"> <center>No Results...</center> </h3>
+				<div ng-show="songsSearching" layout="row" layout-sm="column" layout-align="space-around">
+					<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+				</div>
+				<div ng-hide="songs.length==0" class="md-whiteframe-2dp">
+					<md-list class="md-dense listCustom" flex="">
+						<md-subheader class="md-no-sticky">
+							Title - Artist
+						</md-subheader>
+						<md-divider></md-divider>
+						<md-list-item class="md-2-line" ng-repeat="item in songs" ng-click="playSong(item);">
+							<div ng-class="{notFound: !item.tag}" class="md-list-item-text" style="min-width:18px; max-width:18px; margin-left:10px; margin-right:5px;" layout="column">
+								<i class="material-icons">&#xE037;</i>
+							</div>
+							<div class="md-list-item-text" style="min-width:calc(80% - 110px); max-width:calc(80% - 110px); margin-left:5px; margin-right:5px;" layout="column">
+								<h3>{{ item.title }}</h3>
+							</div>
+							<div class="md-list-item-text" style="min-width:20%; max-width:20%; margin-left:5px; margin-right:5px;" layout="column">
+								<h3>{{ item.artist }}</h3>
+							</div>
+							<md-menu md-position-mode="target-right target">
+								<md-button class="md-icon-button" ng-click="$mdOpenMenu($event);" aria-label="More">
+									<i class="material-icons">&#xE5D4;</i>
+								</md-button>
+								<md-menu-content width="2">
+									<md-menu-item>
+										<md-button ng-click="addToQueue(item);">
+											Add to Queue
+										</md-button>
+									</md-menu-item>
+									<md-menu-item ng-hide="item.tag">
+										<md-button ng-click="editSong(item);">
+											Set Details...
+										</md-button>
+									</md-menu-item>
+									<md-menu-item ng-show="item.tag">
+										<md-button ng-click="clearSong(item);">
+											Clear Details
+										</md-button>
+									</md-menu-item>
+									<md-menu-item ng-show="item.tag">
+										<md-button ng-click="editSong(item);">
+											Edit Details...
+										</md-button>
+									</md-menu-item>
+									<md-menu-item>
+										<md-button ng-click="addToPlaylist(item);">
+											Add to Playlist...
+										</md-button>
+									</md-menu-item>
+								</md-menu-content>
+							</md-menu>
+							<md-divider></md-divider>
+						</md-list-item>
+						
+					</md-list>
+				</div>			
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+			</div>
+			
+			<div ng-show="searchFilter.album && searchText">
+				<h1> Albums </h1>
+				<h3 ng-show="!albumsSearching && albums.length==0"> <center>No Results...</center> </h3>
+				<div ng-show="albumsSearching" layout="row" layout-sm="column" layout-align="space-around">
+					<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+				</div>
+				<md-grid-list ng-hide="albums.length==0" md-cols-xs="2" md-cols-sm="3" md-cols-md="4" md-cols-gt-md="5" md-row-height="1:1" md-gutter="12px">
+					<md-grid-tile class="md-whiteframe-2dp" ng-style="{'background-image':item.albumArt?'url('+item.albumArt+')':'url(webUI/alt.png)'}" ng-click="showAlbumBottomSheet(item)" ng-repeat="item in albums">
+						<md-grid-tile-footer>
+							<h3>{{item.album}}</h3>
+							<h4>{{item.artist}}</h4>
+						</md-grid-tile-footer>
+					</md-grid-tile>
+				</md-grid-list>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+			</div>
+			
+			<div ng-show="searchFilter.artist && searchText">
+				<h1> Artists </h1>
+				<h3 ng-show="!artistsSearching && artists.length==0"> <center>No Results...</center> </h3>
+				<div ng-show="artistsSearching" layout="row" layout-sm="column" layout-align="space-around">
+					<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+				</div>
+				<md-grid-list ng-hide="artists.length==0" md-cols-xs="2" md-cols-sm="3" md-cols-md="4" md-cols-gt-md="5" md-row-height="1:1" md-gutter="12px">
+					<md-grid-tile class="md-whiteframe-2dp" ng-style="{'background-image':item.artistImg?'url('+item.artistImg+')':'url(webUI/alt.png)'}" ng-click="showArtistBottomSheet(item)" ng-repeat="item in artists">
+						<md-grid-tile-footer>
+							<h3>{{item.artist}}</h3>
+						</md-grid-tile-footer>
+					</md-grid-tile>
+				</md-grid-list>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+			</div>
+			
+			<div ng-show="songs.length>0 || albums.length>0 || artists.length>0">
+				<center>
+					<div class="lastFMLink">
+						<div class="lastFMLinkText">powered by AudioScrobbler</div> 
+						<div class="lastFMLinkButton" ng-click="lastFM()"><img src="webUI/pagesearch/lastfm_grey_small.gif"></img></div>
+					</div> 
+				</center>
+				<br/>
+			</div>
+			
+		</md-content>
+	</div>
+	
+	
+	<script type="text/ng-template" id="bottom-sheet-artist.html">
+		<md-bottom-sheet>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<div class="mainIcon md-whiteframe-2dp" ng-style="{'background-image':artist.artistImg?'url('+artist.artistImg+')':'url(webUI/alt.png)'}"></div>
+					<h2><span>{{artist.artist}}</span></h2>
+					<span flex></span>
+					<md-button class="md-raised" ng-click="close()" aria-label="Back">Back</md-button>
+				</div>
+			</md-toolbar>
+	
+			<md-content flex style="padding-left:20px; padding-right:20px; width:100%; height:100%;" layout="column">				
+				<br/>	
+				<br/>
+				<br/>
+				<h3 ng-show="!albumsSearching && artist.albums.length==0"> <center>No Results...</center> </h3>
+				<div ng-show="albumsSearching" layout="row" layout-sm="column" layout-align="space-around">
+					<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+				</div>
+				<div ng-hide="albumsSearching || artist.albums.length==0" ng-repeat="album in artist.albums">
+					<md-toolbar class="sub-header">
+						<div class="md-toolbar-tools">
+							<div class="artIcon md-whiteframe-2dp" ng-style="{'background-image':album.albumArt?'url('+album.albumArt+')':'url(webUI/alt.png)'}"></div>
+							<h2><span>{{album.album}}</span></h2>
+						</div>
+					</md-toolbar>
+				
+					<h3 ng-show="album.songs.length==0"> <center>No Results...</center> </h3>
+					<div ng-hide="album.songs.length==0" class="md-whiteframe-2dp">
+						<md-list class="md-dense listCustom" flex="">
+							<md-subheader class="md-no-sticky">
+								Title - Artist
+							</md-subheader>
+							<md-divider></md-divider>
+							<md-list-item class="md-2-line" ng-repeat="item in album.songs" ng-click="playSong(item);">
+								<div ng-class="{notFound: !item.tag}" class="md-list-item-text" style="min-width:18px; max-width:18px; margin-left:10px; margin-right:5px;" layout="column">
+									<i class="material-icons">&#xE037;</i>
+								</div>
+								<div class="md-list-item-text" style="min-width:calc(80% - 110px); max-width:calc(80% - 110px); margin-left:5px; margin-right:5px;" layout="column">
+									<h3>{{ item.title }}</h3>
+								</div>
+								<div class="md-list-item-text" style="min-width:20%; max-width:20%; margin-left:5px; margin-right:5px;" layout="column">
+									<h3>{{ item.artist }}</h3>
+								</div>
+								<md-menu md-position-mode="target-right target">
+									<md-button class="md-icon-button" ng-click="$mdOpenMenu($event);" aria-label="More">
+										<i class="material-icons">&#xE5D4;</i>
+									</md-button>
+									<md-menu-content width="2">
+										<md-menu-item>
+											<md-button ng-click="addToQueue(item);">
+												Add to Queue
+											</md-button>
+										</md-menu-item>
+										<md-menu-item ng-hide="item.tag">
+											<md-button ng-click="editSong(item);">
+												Set Details...
+											</md-button>
+										</md-menu-item>
+										<md-menu-item ng-show="item.tag">
+											<md-button ng-click="clearSong(item);">
+												Clear Details
+											</md-button>
+										</md-menu-item>
+										<md-menu-item ng-show="item.tag">
+											<md-button ng-click="editSong(item);">
+												Edit Details...
+											</md-button>
+										</md-menu-item>
+										<md-menu-item>
+											<md-button ng-click="addToPlaylist(item);">
+												Add to Playlist...
+											</md-button>
+									</md-menu-item>
+									</md-menu-content>
+								</md-menu>
+								<md-divider></md-divider>
+							</md-list-item>
+							
+						</md-list>
+					</div>	
+					<br/>	
+				</div>
+				<br/>
+				<br/>
+				<br/>
+			
+				<div ng-show="!albumsSearching && artist.albums.length>0">
+					<center>
+						<div class="lastFMLink">
+							<div class="lastFMLinkText">powered by AudioScrobbler</div> 
+							<div class="lastFMLinkButton" ng-click="lastFM(artist)"><img src="webUI/pagesearch/lastfm_grey_small.gif"></img></div>
+						</div> 
+					</center>
+				</div>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+			</md-content>
+		</md-bottom-sheet>
+	</script>
+	
+	
+	<script type="text/ng-template" id="bottom-sheet-album.html">
+		<md-bottom-sheet>
+			<md-toolbar>
+				<div class="md-toolbar-tools">
+					<div class="mainIcon md-whiteframe-2dp" ng-style="{'background-image':album.albumArt?'url('+album.albumArt+')':'url(webUI/alt.png)'}"></div>
+					<h2><span>{{album.album}}</span></h2>
+					<span flex></span>
+					<md-button class="md-raised" ng-click="close()" aria-label="Back">Back</md-button>
+				</div>
+			</md-toolbar>
+		
+			<md-content flex style="padding-left:20px; padding-right:20px; width:100%; height:100%;" layout="column">				
+				<br/>	
+				<br/>
+				<br/>
+				<h3 ng-show="!songsSearching && album.songs.length==0"> <center>No Results...</center> </h3>
+				<div ng-show="songsSearching" layout="row" layout-sm="column" layout-align="space-around">
+					<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+				</div>
+				<div ng-hide="songsSearching || album.songs.length==0" class="md-whiteframe-2dp">
+					<md-list class="md-dense listCustom" flex="">
+						<md-subheader class="md-no-sticky">
+							Title - Artist
+						</md-subheader>
+						<md-divider></md-divider>
+						<md-list-item class="md-2-line" ng-repeat="item in album.songs" ng-click="playSong(item);">
+							<div ng-class="{notFound: !item.tag}" class="md-list-item-text" style="min-width:18px; max-width:18px; margin-left:10px; margin-right:5px;" layout="column">
+								<i class="material-icons">&#xE037;</i>
+							</div>
+							<div class="md-list-item-text" style="min-width:calc(80% - 110px); max-width:calc(80% - 110px); margin-left:5px; margin-right:5px;" layout="column">
+								<h3>{{ item.title }}</h3>
+							</div>
+							<div class="md-list-item-text" style="min-width:20%; max-width:20%; margin-left:5px; margin-right:5px;" layout="column">
+								<h3>{{ item.artist }}</h3>
+							</div>
+							<md-menu md-position-mode="target-right target">
+								<md-button class="md-icon-button" ng-click="$mdOpenMenu($event);" aria-label="More">
+									<i class="material-icons">&#xE5D4;</i>
+								</md-button>
+								<md-menu-content width="2">
+									<md-menu-item>
+										<md-button ng-click="addToQueue(item);">
+											Add to Queue
+										</md-button>
+									</md-menu-item>
+									<md-menu-item ng-hide="item.tag">
+										<md-button ng-click="editSong(item);">
+											Set Details...
+										</md-button>
+									</md-menu-item>
+									<md-menu-item ng-show="item.tag">
+										<md-button ng-click="clearSong(item);">
+											Clear Details
+										</md-button>
+									</md-menu-item>
+									<md-menu-item ng-show="item.tag">
+										<md-button ng-click="editSong(item);">
+											Edit Details...
+										</md-button>
+									</md-menu-item>
+									<md-menu-item>
+										<md-button ng-click="addToPlaylist(item);">
+											Add to Playlist...
+										</md-button>
+									</md-menu-item>
+								</md-menu-content>
+							</md-menu>
+							<md-divider></md-divider>
+						</md-list-item>
+					</md-list>
+				</div>
+				<br/>
+				<br/>
+				<br/>
+			
+				<div ng-show="album.songs.length>0">
+					<center>
+						<div class="lastFMLink">
+							<div class="lastFMLinkText">powered by AudioScrobbler</div> 
+							<div class="lastFMLinkButton" ng-click="lastFM(album)"><img src="webUI/pagesearch/lastfm_grey_small.gif"></img></div>
+						</div> 
+					</center>
+				</div>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+			</md-content>
+		</md-bottom-sheet>
+	</script>
+		
+</div>

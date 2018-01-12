@@ -1,0 +1,117 @@
+<div class="pagesettingsMain">	
+	<md-content flex style="width:100%; height:100%;" layout="column">
+	
+	<div class="section">
+		<div class="label">Power</div>
+		
+		<md-list class="md-dense md-whiteframe-1dp" flex>
+			<md-list-item class="md-2-line">
+				<md-icon>
+					<i class="material-icons">&#xE8AC;</i>
+				</md-icon>
+				<div class="md-list-item-text">
+					<h3><b>On</b></h3>
+				</div>
+				<md-button class="md-secondary" ng-click="confirmShutdown($event)">Shut Down</md-button>
+			</md-list-item>
+		</md-list>
+	</div>
+	
+	<md-divider></md-divider>
+	
+	<div class="section">
+		<div class="label">Audio Volume</div>
+
+		<md-slider-container class="md-whiteframe-1dp">
+			<md-icon>
+				<i ng-show="volume<=10" class="material-icons">&#xE04E;</i>
+				<i ng-show="volume>10 && volume<60" class="material-icons">&#xE04D;</i>
+				<i ng-show="volume>=60" class="material-icons">&#xE050;</i>
+			</md-icon>
+			<md-slider flex min="0" max="100" ng-model="volume" ng-change="volumeChange();" aria-label="volume" class="md-primary"></md-slider>
+		</md-slider-container>
+	</div>
+	
+	<md-divider></md-divider>
+	
+	<div class="section">
+		<div class="label">Audio Output</div>
+
+		<md-list class="md-dense md-whiteframe-1dp" flex>
+			<md-list-item>
+				<md-icon><i class="material-icons">&#xE405;</i></md-icon>
+				<p> AUX </p>
+				<md-switch class="md-primary" ng-click="outputSelect('aux');" ng-model="output.aux"></md-switch>
+			</md-list-item>
+			<md-list-item>
+				<md-icon><i class="material-icons">&#xE1E0;</i></md-icon>
+				<p> USB </p>
+				<md-switch class="md-primary" ng-click="outputSelect('usb');" ng-model="output.usb"></md-switch>
+			</md-list-item>
+			<md-list-item>
+				<md-icon><i class="material-icons">&#xE8C2;</i></md-icon>
+				<p> HDMI </p>
+				<md-switch class="md-primary" ng-click="outputSelect('hdmi');" ng-model="output.hdmi"></md-switch>
+			</md-list-item>
+			<md-list-item>
+				<md-icon><i class="material-icons">&#xE1A7;</i></md-icon>
+				<p> Bluetooth </p>
+				<md-switch class="md-primary" ng-click="outputSelect('bluetooth');" ng-model="output.bluetooth"></md-switch>
+			</md-list-item>
+		</md-list>
+	</div>
+	
+	<md-divider></md-divider>
+	
+	<div class="section">
+		<div class="label">Bluetooth</div>
+		
+		<md-list class="md-dense md-whiteframe-1dp" flex>
+			<md-list-item class="md-2-line">
+				<md-icon>
+					<i ng-show="bluetooth.selectedStatus == 'not connected'" class="material-icons">&#xE1A9;</i>
+					<i ng-show="bluetooth.selectedStatus == 'connecting...'" class="material-icons">&#xE1AA;</i>
+					<i ng-show="bluetooth.selectedStatus == 'connected'" class="material-icons">&#xE1A8;</i>
+				</md-icon>
+				<div class="md-list-item-text">
+					<h3>{{ bluetooth.selectedDevice }}</h3>
+					<p>{{ bluetooth.selectedStatus }}</p>
+				</div>
+				<md-progress-circular ng-show="bluetooth.scanning" class="md-hue-2" md-diameter="20px"></md-progress-circular>
+				<md-button ng-hide="bluetooth.scanning" class="md-secondary" ng-click="bluetoothScan()">Scan</md-button>
+			</md-list-item>
+		</md-list>
+
+		<md-list class="md-dense sub-list md-whiteframe-1dp" flex>
+			<md-list-item ng-show="bluetooth.selectedMac">
+				<p>{{bluetooth.selectedDevice}}</p>
+				<md-button class="md-secondary" ng-click="bluetoothSelect(null);">Forget</md-button>
+			</md-list-item>
+			<md-list-item ng-show="bluetooth.selectedMac!=device.mac" ng-repeat="device in bluetooth.devices" ng-click="bluetoothSelect(device);">
+				<p>{{device.name}}</p>
+			</md-list-item>
+		</md-list>
+	</div>
+	
+	<md-divider></md-divider>
+	
+	<div class="section">
+		<div class="label">Plugins</div>
+		
+		<md-list class="md-dense md-whiteframe-1dp" flex>
+			<md-list-item ng-repeat="item in plugins.list">
+				<md-icon ng-hide="plugins.images[item.name]" ><i class="material-icons">&#xE87B;</i></md-icon>
+				<div ng-show="plugins.images[item.name]" class="pluginIcon" ng-style="{'background-image':'url('+plugins.images[item.name]+')'}"></div>
+				<p>{{item.name}}</p>
+				<md-switch class="md-primary" ng-click="pluginChange(item, 0);" ng-model="item.enabled"></md-switch>
+				
+				<md-button class="md-icon-button arrowButton" ng-click="pluginChange(item, 1);"><i class="material-icons">&#xE5D8;</i></md-button>
+				<md-button class="md-icon-button arrowButton" ng-click="pluginChange(item, -1);"><i class="material-icons">&#xE5DB;</i></md-button>
+			</md-list-item>
+		</md-list>
+	</div>
+	
+	
+	</md-content>
+
+</div>

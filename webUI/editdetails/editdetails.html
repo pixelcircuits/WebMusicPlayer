@@ -1,0 +1,186 @@
+<div class="editdetailsMain">	
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+		<h2>{{windowTitle}}</h2>
+		</div>
+	</md-toolbar>
+
+	<md-tabs ng-show="song" md-border-bottom="" md-selected="selectedTab">
+	
+	
+		<md-tab label="Info">
+			<md-content class="md-padding">
+				<div layout="row">
+					<md-input-container class="md-icon-float md-block">
+						<label>Title</label>
+						<input ng-model="song.title" type="text" ng-disabled="infoDisabled">
+					</md-input-container>
+				</div>
+				<div layout="row">
+					<md-input-container class="md-icon-float md-block">
+						<label>Artist</label>
+						<input ng-model="song.artist" type="text" ng-disabled="infoDisabled">
+					</md-input-container>
+				</div>
+				<br/>
+				<div style="position:relative;">
+					<div layout="row">
+						<md-button class="md-icon-button albumAutoFill" ng-disabled="infoDisabled" ng-click="autoFillAlbum();" aria-label="Album Auto Fill">
+							<md-tooltip md-direction="bottom">Auto Fill Album</md-tooltip>
+							<i class="material-icons">&#xE863;</i>
+						</md-button>
+						<md-input-container class="md-icon-float md-block">
+							<label>Album</label>
+							<input ng-model="song.album" type="text" ng-disabled="infoDisabled">
+						</md-input-container>
+					</div>
+					<div layout="row" style="position:relative;">
+						<div class="md-whiteframe-2dp artIcon" ng-style="{'background-image':'url('+song.albumArt+')'}"></div>
+						<md-button class="md-icon-button albumArtButton" style="top:60px;" ng-disabled="infoDisabled" ng-click="clearArt();" aria-label="Clear Album Art">
+							<!-- <md-tooltip md-direction="bottom">Clear Album Art</md-tooltip> -->
+							<i class="material-icons" style="position:absolute; top:0; left:0; width:100%; margin-top:7px;">&#xE14C;</i>
+						</md-button>
+						<md-button class="md-icon-button albumArtButton" style="top:90px;" ng-disabled="infoDisabled" aria-label="Upload Album Art">
+							<!-- <md-tooltip md-direction="bottom">Upload Album Art</md-tooltip> -->
+							<i class="material-icons" style="position:absolute; top:0; left:0; width:100%; margin-top:7px;">&#xE2C6;</i>
+							<input id="uploadfile" ng-hide="infoDisabled" onchange="angular.element(this).scope().uploadArt();" type="file" accept="image/*" style="opacity:0; width:100%; height:100%; position:absolute; top:0; left:0; cursor:pointer;"/>
+						</md-button>
+						<md-button class="md-icon-button albumArtButton" style="top:125px;" ng-disabled="infoDisabled" ng-click="selectArt();" aria-label="Select Album Art">
+							<!-- <md-tooltip md-direction="bottom">Select Album Art</md-tooltip> -->
+							<i class="material-icons" style="position:absolute; top:0; left:0; width:100%; margin-top:7px;">&#xE413;</i>
+						</md-button>	
+					</div>
+					<div ng-show="searchingAlbum" class="albumSectionOverlay">
+						<md-progress-circular class="center" md-mode="indeterminate"></md-progress-circular>
+					</div>
+				</div>
+			</md-content>
+		</md-tab>
+		
+		
+		<md-tab label="Stream" md-on-select="onSourceSelect()">
+			<md-tabs ng-hide="noPlugins" class="sourceTabs" md-no-ink="" md-no-ink-bar="" md-selected="selectedSource">
+				<md-tab label="label" ng-click="onSourceSelect()" ng-repeat="source in plugins">
+					<md-tab-label>
+						<md-button class="md-raised sourceButton" ng-style="{'background-image':'url('+source.icon+')'}">{{source.name}}</md-button>
+					</md-tab-label>
+				</md-tab>
+			</md-tabs>
+			<md-content class="md-padding" style="height: 300px;">
+				
+				<div ng-show="noPlugins" layout="row" layout-sm="column" layout-align="space-around">
+					No Plugins Enabled...
+				</div>
+				
+				<div ng-show="!noPlugins && streamsLoading" layout="row" layout-sm="column" layout-align="space-around">
+					<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+				</div>
+				
+				<md-grid-list ng-show="!streamsLoading" md-cols-xs="2" md-cols-sm="2" md-cols-md="3" md-cols-lg="4" md-cols-gt-lg="4" md-row-height="5:3" md-gutter="12px">					
+					<md-grid-tile ng-class="{select: item.tag==song.tag}" class="md-whiteframe-2dp" ng-style="{'background-image':'url('+item.img+')'}" ng-click="onStreamSelect(item)" ng-repeat="item in streams">
+						<md-grid-tile-footer>
+							<h3>{{item.text}}</h3>
+						</md-grid-tile-footer>
+					</md-grid-tile>
+				</md-grid-list>	
+			
+				<div ng-show="!streamsLoading" ng-class="{select: manualStream.tag&&song.tag==manualStream.tag, bad: manualStream.bad}" class="manualStream md-whiteframe-2dp" layout="row" layout-sm="column" layout-align="space-around">
+					<form ng-submit="onManualStreamSelect();">
+						<md-input-container class="md-icon-float md-block">
+							<label>URL</label>
+							<input ng-model="manualStream.url" type="text" ng-disabled="manualStream.processing">
+						</md-input-container>
+						<md-button ng-disabled="manualStream.processing" class="md-raised" ng-click="onManualStreamSelect();">Select</md-button>
+					</form>
+					<div class="manualStreamFooter">
+						<div style="padding-left:10px; padding-right:10px;">{{manualStream.description}}</div>
+					</div>
+				</div>
+				
+			</md-content>
+		</md-tab>
+		
+		
+		<md-tab ng-if="visualsSupported" label="Visuals">
+			<md-content class="md-padding" style="padding-bottom:0px;" ng-init="resize();">
+				<div layout="row" style="height:185px;">
+					<div style="position:relative; width:350px; height:175px; margin-left:auto; margin-right:auto; background-color:#000">
+						<div ng-show="visuals.background=='Video'" class="playerImage" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/Video.png');"> </div>
+						<div ng-show="visuals.background=='Album Art'" class="playerImage" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/AlbumArt.png');"> </div>
+						<div ng-show="visuals.background=='Gradient'" class="playerImage" ng-style="getFiltersForColor(visuals.colors[visuals.colorIndex].color3)" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/Gradient.png');"> </div>
+						
+						<div ng-show="visuals.foreground=='Wave'" class="playerImage" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/SingleWave(shadow).png');"> </div>
+						<div ng-show="visuals.foreground=='Wave'" class="playerImage" ng-style="getFiltersForColor(visuals.colors[visuals.colorIndex].color1)" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/SingleWave.png');"> </div>
+						
+						<div ng-show="visuals.foreground=='Wave (Stereo)'" class="playerImage" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/StereoWave(shadow).png');"> </div>
+						<div ng-show="visuals.foreground=='Wave (Stereo)'" class="playerImage" ng-style="getFiltersForColor(visuals.colors[visuals.colorIndex].color1)" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/StereoWave(b).png');"> </div>
+						<div ng-show="visuals.foreground=='Wave (Stereo)'" class="playerImage" ng-style="getFiltersForColor(visuals.colors[visuals.colorIndex].color2)" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/StereoWave(a).png');"> </div>
+						
+						<div ng-show="visuals.foreground=='Spectrum'" class="playerImage" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/SingleSpec(shadow).png');"> </div>
+						<div ng-show="visuals.foreground=='Spectrum'" class="playerImage" ng-style="getFiltersForColor(visuals.colors[visuals.colorIndex].color1)" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/SingleSpec.png');"> </div>
+						
+						<div ng-show="visuals.foreground=='Spectrum (Stereo)'" class="playerImage" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/StereoSpec(shadow).png');"> </div>
+						<div ng-show="visuals.foreground=='Spectrum (Stereo)'" class="playerImage" ng-style="getFiltersForColor(visuals.colors[visuals.colorIndex].color1)" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/StereoSpec(b).png');"> </div>
+						<div ng-show="visuals.foreground=='Spectrum (Stereo)'" class="playerImage" ng-style="getFiltersForColor(visuals.colors[visuals.colorIndex].color2)" style="width:100%; height:100%; background-image: url('webUI/editdetails/preview/StereoSpec(a).png');"> </div>
+					</div>
+				</div>
+				<div layout="row">
+					<div layout="column" style="width:100%">
+						<md-input-container style="width:calc(100% - 10px);">
+							<label>Background</label>
+							<md-select ng-model="visuals.background">
+								<md-option value="Gradient">Gradient</md-option>
+								<md-option value="Album Art">Album Art</md-option>
+								<md-option value="Video">Video</md-option>
+								<md-option value="None">None</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					<div layout="column" style="width:100%">
+						<md-input-container style="width:calc(100% - 10px);">
+							<label>Foreground</label>
+							<md-select ng-model="visuals.foreground">
+								<md-option value="Wave">Wave</md-option>
+								<md-option value="Wave (Stereo)">Wave (Stereo)</md-option>
+								<md-option value="Spectrum">Spectrum</md-option>
+								<md-option value="Spectrum (Stereo)">Spectrum (Stereo)</md-option>
+								<md-option value="None">None</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+				</div>
+				<br/>
+				<label>Colors</label>
+				<br/>
+				<div layout="row" style="height:80px; margin:3px;">
+					<div layout="column" ng-style="{'margin-right':($last?'4px':'calc(18% - 50px)')}" style="height:65px; width:60px; margin:4px; cursor:pointer;" ng-class="{select: visuals.colorIndex==$index, colorSelect: true}" class="md-whiteframe-2dp" ng-click="visuals.colorIndex=$index" ng-repeat="color in visuals.colors">
+						<div style="position:relative; width:100%; height:100%;">
+							<div ng-style="{'background-color':'rgb('+color.color1[0]+','+color.color1[1]+','+color.color1[2]+')'}" style="position:absolute; top:0; width:100%; height:65%;"></div>
+							<div ng-style="{'background-color':'rgb('+color.color2[0]+','+color.color2[1]+','+color.color2[2]+')'}" style="position:absolute; bottom:0; left:0; width:48%; height:32%;"></div>
+							<div ng-style="{'background-color':'rgb('+color.color3[0]+','+color.color3[1]+','+color.color3[2]+')'}" style="position:absolute; bottom:0; right:0; width:48%; height:32%;"></div>
+						</div>
+					</div>
+				</div>
+			</md-content>
+		</md-tab>
+	</md-tabs>
+	
+	<div style="width:100%; height:1px; background-color:#e1e1e1;"></div>
+
+	<md-button class="md-raised" ng-disabled="actionButtonDisabled" ng-click="onActionButtonClick()">{{actionButtonText}}</md-button>
+	<md-button class="md-raised rightJustify" ng-click="close()">Close</md-button>
+	
+	
+	<script type="text/ng-template" id="image-select.html">
+		<md-dialog style="width:295px; max-width:295px; height:350px;" aria-label="Image Select Dialog">
+           <md-dialog-content class="md-padding">
+				<md-grid-list md-cols="2" md-row-height="1:1" md-gutter="10px">					
+					<md-grid-tile class="md-whiteframe-2dp" ng-style="{'background-image':'url('+file+')'}" style="background-size:cover; cursor:pointer;" ng-click="onSelect(file);" ng-repeat="file in files">
+					</md-grid-tile>
+				</md-grid-list>	
+           </md-dialog-content>
+		</md-dialog aria-label="List dialog">
+	</script>
+	
+</div>

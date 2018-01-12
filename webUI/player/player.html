@@ -1,0 +1,40 @@
+<div class="playerMain">	
+
+	<div ng-hide="playing.state=='null'" class="playerImageBack" ng-style="{'background-image':playing.albumArt?'url('+playing.albumArt+')':'url(webUI/alt.png)'}"> </div>
+	<div ng-hide="playing.state=='null'" class="playerImage" ng-style="{'background-image':playing.albumArt?'url('+playing.albumArt+')':'url(webUI/alt.png)'}"> </div>
+	
+	<div ng-class="{'playerHover':!isDesktop}" class="playerOverlay"> 
+		<i ng-class="{'playerHover':!isDesktop}" class="material-icons button playerTopRight" ng-show="playing.state=='paused' || playing.state=='playing'" ng-click="editSong();">&#xE5D3;</i>
+	
+		<i ng-class="{'playerHover':!isDesktop}" class="material-icons button playerLeft" ng-hide="playing.state=='null' || playing.state=='error'" ng-click="back();">&#xE045;</i>
+		
+		<div ng-class="{'playerHover':!isDesktop}" class="playerCenter selectText" ng-show="playing.state=='null'">Select a song...</div>
+		<i ng-class="{'playerHover':!isDesktop}" class="material-icons button playerCenter" ng-show="playing.state=='paused'" ng-click="play();">&#xE037;</i>
+		<i ng-class="{'playerHover':!isDesktop}" class="material-icons button playerCenter" ng-show="playing.state=='playing'" ng-click="pause();">&#xE034;</i>
+		<i ng-class="{'playerHover':!isDesktop}" class="material-icons button playerCenter" ng-show="playing.state=='error'" ng-click="play();">&#xE001;<md-tooltip md-direction="bottom">{{playing.errorText}}</md-tooltip></i>
+		<md-progress-circular class="playerCenter" ng-show="playing.state=='processing'" md-mode="indeterminate"></md-progress-circular>
+		
+		<i ng-class="{'playerHover':!isDesktop}" class="material-icons button playerRight" ng-hide="playing.state=='null' || playing.state=='error'" ng-click="next();">&#xE044;</i>
+		
+		<div ng-class="{'playerHover':!isDesktop}" class="playerTextLeft">{{playing.timeText}}</div>
+		<div ng-class="{'playerHover':!isDesktop}" class="playerTextRight">{{playing.durationText}}</div>
+	</div>
+	
+	<div class="playerBottom">
+		<md-progress-linear md-mode="determinate" value={{playing.timePercent}}></md-progress-linear>
+		
+		<div style="margin:auto; position:absolute; top:-10px; bottom:0; width:100%;">
+			<md-list class="md-dense" flex="">
+				<md-list-item class="md-2-line">
+					<div class="md-list-item-text" layout="column">
+						<h3 style="color:#FFF; margin:3px; font-size:16px;"><b>{{ playing.title }}</b></h3>
+						<h4 style="color:#FFF; margin:3px; font-size:14px;">{{ playing.artist }}</h4>
+					</div>
+				</md-list-item>
+			</md-list>
+		</div>
+	</div>
+	
+	<div ng-hide="playing.state=='null' || playing.state=='processing'" class="seekBar" ng-click="seek($event)"></div>
+		
+</div>

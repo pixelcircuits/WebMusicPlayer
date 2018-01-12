@@ -1,0 +1,137 @@
+div.pagesearchMain {
+	position: relative;
+	overflow-y: hidden;
+	width:100%;
+	height:100%;
+	
+	-webkit-user-select: none; /* Chrome/Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+	
+	/* Rules below not implemented in browsers yet */
+	-o-user-select: none;
+	user-select: none;
+}
+
+div.pagesearchMain form {
+	padding-left: 20px;
+}
+
+div.pagesearchMain md-input-container {
+    height: 20px;
+    margin-top: 0px;
+    width: calc(100% - 40px);
+}
+
+md-checkbox.md-default-theme.md-checked .md-ink-ripple, md-checkbox.md-checked .md-ink-ripple {
+    color: rgba(27, 86, 241,0.87);
+}
+md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+    background-color: rgba(27, 86, 241,0.87);
+}
+
+div.pagesearchMain md-list {
+	padding: 0px;
+	background-color: #ffffff;
+}
+
+div.pagesearchMain md-list .md-subheader {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+div.pagesearchMain md-list.listCustom div.md-button {
+	padding: 0px;
+}
+
+div.pagesearchMain .notFound {
+	color: rgba(189, 189, 189, 0.87);
+}
+
+div.pagesearchMain md-content {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+div.pagesearchMain md-grid-tile {
+	cursor: pointer;
+	background: rgba(100, 100, 100, 0.87);
+	background-size: cover;
+}
+
+div.pagesearchMain md-grid-tile md-grid-tile-footer {
+	background-color: rgba(0, 0, 0, 0.48);
+	transition: all .1s linear;
+}
+div.pagesearchMain md-grid-tile:hover md-grid-tile-footer {
+	height:68px;
+}
+
+div.pagesearchMain md-bottom-sheet {
+	height: calc(100% - 8px);
+	background-color: rgb(235, 235, 235);
+	border-top-width: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+}
+
+div.pagesearchMain md-bottom-sheet md-toolbar {
+	background-color: rgb(115, 115, 115);
+}
+
+div.pagesearchMain md-bottom-sheet md-toolbar div.md-toolbar-tools {
+	padding-left: 2px;
+	padding-right: 0px;
+}
+
+div.pagesearchMain md-bottom-sheet md-toolbar .md-toolbar-tools>.md-button:last-child {
+	margin-right: 10px;
+}
+
+div.pagesearchMain md-bottom-sheet md-toolbar.sub-header {
+	background-color: rgba(0, 0, 0, 0);
+	color: rgba(0, 0, 0, 0.87);
+	padding: 0px;
+	z-index: -1;
+}
+
+div.pagesearchMain div.mainIcon {
+	height: 100px;
+	width: 100px;
+	margin-right: 10px;
+	background: rgb(100, 100, 100);
+	background-size: cover;
+	
+	-ms-transform: translate(5px,25px);
+    -webkit-transform: translate(5px,25px);
+    transform: translate(3px,25px);
+}
+
+div.pagesearchMain div.artIcon {
+	height: 54px;
+	width: 54px;
+	margin-right: 10px;
+	background: rgba(100, 100, 100, 0.87);
+	background-size: cover;
+}
+
+div.pagesearchMain div.lastFMLink {
+	position: relative; 
+	width: 285px; 
+	height: 32px;
+}
+
+div.pagesearchMain div.lastFMLinkText {
+	position: absolute; 
+	left: 0; 
+	line-height: 32px; 
+	text-align: center;
+}
+
+div.pagesearchMain div.lastFMLinkButton {
+	position: absolute; 
+	right: 0;
+}
+
+div.pagesearchMain div.lastFMLinkButton:hover {
+	cursor: pointer;
+}

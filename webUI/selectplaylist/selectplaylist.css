@@ -1,0 +1,47 @@
+div.selectplaylistMain {	
+	width: 100%;
+	height: 100%;
+	-webkit-user-select: none; /* Chrome/Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+	
+	/* Rules below not implemented in browsers yet */
+	-o-user-select: none;
+	user-select: none;
+	
+	transition: all .15s ease-out;
+}
+
+div.selectplaylistPanel {
+	position: absolute;
+	background-color: #ffffff;
+	width: 320px;
+	overflow-y: auto;
+}
+
+div.selectplaylistMain md-toolbar {
+	background-color: #737373;
+    color: #000000;
+}
+
+div.selectplaylistMain md-input-container {
+	margin-left: 20px;
+	margin-top: 20px;
+    width: 85%;
+}
+
+div.selectplaylistMain md-list.md-dense md-list-item.md-2-line>.md-no-style .md-list-item-text h4 {
+	font-size: 12pt;
+}
+
+div.selectplaylistMain button.rightJustify {
+	position: absolute;
+    right: 0;
+	bottom: 0;
+}
+
+div.selectplaylistMain button.saveButton {
+	position: absolute;
+    left: 0;
+	bottom: 0;
+}

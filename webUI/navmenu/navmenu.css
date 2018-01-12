@@ -1,0 +1,49 @@
+div.navmenuMain {
+	position: relative;
+	/*background-color: #b5b5b5;*/
+	width: 100%; 
+	height: 100%;
+	
+	-webkit-user-select: none; /* Chrome/Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+ */
+	
+	/* Rules below not implemented in browsers yet */
+	-o-user-select: none;
+	user-select: none;
+}
+
+div.navmenuMain md-list {
+	/*background-color: #b5b5b5;*/
+}
+
+div.navmenuMain md-list-item {
+	height: 25px;
+}
+
+div.navmenuMain div.md-list-item-text {
+	margin-left: 10px;
+}
+
+div.navmenuMain md-list md-list.md-dense {
+	padding: 0px;
+}
+
+div.navmenuMain md-list md-list md-list-item._md-button-wrap>div.md-button {
+	padding-left: 50px;
+}
+
+div.navmenuMain md-list md-list md-list-item {
+	min-height: 36px;
+}
+
+div.navmenuMain md-list-item._md-button-wrap.select>div.md-button {
+    border-left-width: 6px;
+    border-left-color: #343434;
+    border-left-style: solid;
+    padding-left: 10px;
+}
+
+div.navmenuMain .disabled {
+	color: rgb(199, 199, 199);
+}

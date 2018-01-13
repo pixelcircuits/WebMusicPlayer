@@ -2,7 +2,7 @@
 The Web Music Player is a music platform designed to play music from across the web by utilizing a simple chrome browser. The intent is to designate a computer to host a server and play music for other devices to control through a web interface. Perfect for the Raspberry Pi, this project also includes a local Pixel Visualizer interface, using the Pixel Display and an RF remote, to control the music and provide a visualizer. Refer to the documentation to learn about how to use the Web Music Player.
 
 * [Hackaday](https://hackaday.io/project/28448-web-music-player) - Project Page
-* [Pixel Display](http://www.google.com/) - Tindie
+* [Pixel Display](https://www.tindie.com/products/11311/) - Tindie
 * [Pixel Display](http://www.pixelcircuits.com/) - Website
 
 ## Setup (Raspbian Desktop)

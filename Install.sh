@@ -11,8 +11,8 @@ rm node-v9.0.0-linux-armv6l.tar.xz
 npm install
 
 #make scripts runnable
-chmod +x Start
-chmod +x End
+chmod +x Start.sh
+chmod +x End.sh
 chmod +x visualizerUI/VisualizerUI
 
 #update chromium-browser

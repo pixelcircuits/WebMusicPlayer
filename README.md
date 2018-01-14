@@ -6,7 +6,7 @@ The Web Music Player is a music platform designed to play music from across the 
 * [Pixel Display](http://www.pixelcircuits.com/) - Website
 
 ## Setup (Raspbian Desktop)
-The Web Music Player is only guaranteed to work on the Raspberry Pi 3 and needs the latest version of full Raspbian with the desktop to run (Stretch 2017-09-07). Refer to [this tutorial](https://www.raspberrypi.org/documentation/installation/installing-images/README.md) first for getting Raspbian OS up and running.
+The Web Music Player is only guaranteed to work on the Raspberry Pi 3 and needs the latest version of full Raspbian with the desktop to run (Stretch 2017-11-29). Refer to [this tutorial](https://www.raspberrypi.org/documentation/installation/installing-images/README.md) first for getting Raspbian OS up and running.
 
 **1. Configure Wifi**
 
